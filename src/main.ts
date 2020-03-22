@@ -1,16 +1,34 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import * as shields from 'gh-badges'
+import * as AWS from 'aws-sdk'
+import * as input from './input'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    const badgeFormat = input.getBadgeFormat()
+    const badgeFactory = new shields.BadgeFactory()
+    const badge = badgeFactory.create(badgeFormat)
+    core.debug(`Badge format options ${JSON.stringify(badgeFormat)}`)
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    input.setupAwsCredentials()
+    const region = input.getAwsRegion()
+    AWS.config.update({region})
+    core.info(`AWS region set to "${region}"`)
 
-    core.setOutput('time', new Date().toTimeString())
+    const bucket = input.getAwsBucket()
+    const filepath = input.getAwsFilepath()
+    core.info(`Uploading file "${filepath}" to "${bucket}" bucket`)
+
+    const s3 = new AWS.S3({apiVersion: '2006-03-01'})
+    await s3
+      .upload({
+        ACL: 'public-read',
+        ContentType: 'image/svg+xml',
+        Body: badge,
+        Bucket: bucket,
+        Key: filepath
+      })
+      .promise()
   } catch (error) {
     core.setFailed(error.message)
   }
