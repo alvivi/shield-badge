@@ -1,10 +1,45 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'shield-badge'
+description: 'Creates a badge and upload it to a AWS S3 bucket'
+author: 'alvivi'
+branding:
+  icon: 'tag'
+  color: 'purple'
 inputs:
-  myInput:              # change this
-    description: 'input description here'
-    default: 'default value if applicable'
+  label:
+    description: 'the text in the badge on the left'
+    required: true
+  text:
+    description: 'the text in the badge on the right'
+    required: true
+  color:
+    description: 'the color behind the text'
+    required: false
+  label-color:
+    description: 'the color behind the label'
+    required: false
+  format:
+    description: 'the format of the output file (svg or json)'
+    default: 'svg'
+    required: false
+  template:
+    description: 'the template used to create the badge'
+    default: 'flat'
+    required: false
+  aws-access-key-id:
+    description: 'Amazon Access Key Id'
+    required: true
+  aws-secret-access-key:
+    description: 'Amazon Secret Access Key'
+    required: true
+  aws-region:
+    description: 'The region where the bucket is located'
+    required: true
+  aws-bucket:
+    description: 'The name of the region'
+    required: true
+  aws-filepath:
+    description: 'The file path of the file'
+    required: true
 runs:
   using: 'node12'
   main: 'dist/index.js'
