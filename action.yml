@@ -1,4 +1,4 @@
-name: 'shield-badge'
+name: 'Shield Badge'
 description: 'Creates a badge and upload it to a AWS S3 bucket'
 author: 'alvivi'
 branding:
