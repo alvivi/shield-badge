@@ -19,9 +19,11 @@ information, reference the GitHub Help Documentation for
 
 Badge parameters:
 
-* `text` - the text in the badge on the right (*required*).
-* `label` - the text in the badge on the left (*required*).
-* `color` - the [color](https://github.com/badges/shields/tree/master/gh-badges#colors) behind the text.
+* `label` - the text in the badge on the left (**required**).
+* `text` - the text in the badge on the right (**required**).
+* `color` - the [color](https://github.com/badges/shields/tree/master/gh-badges#colors)
+   behind the text. A `coverage` color value will set this color based on the
+   `text` value, being *100* green and *0* red.
 * `label-color` - the [color](https://github.com/badges/shields/tree/master/gh-badges#colors) behind the label.
 * `format` - the format of the output file (`svg` or `json`).
 * `template` - the [template](https://github.com/badges/shields/tree/master/gh-badges/templates) used to create the badge.
