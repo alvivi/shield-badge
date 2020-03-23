@@ -24,6 +24,7 @@ async function run(): Promise<void> {
       .upload({
         ACL: 'public-read',
         ContentType: 'image/svg+xml',
+        CacheControl: 'no-cache',
         Body: badge,
         Bucket: bucket,
         Key: filepath
